@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +23,7 @@ const Login = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(err.response?.data?.message || t('auth.invalidCredentials'));
     } finally {
       setLoading(false);
     }
@@ -48,15 +50,15 @@ const Login = () => {
                 <line x1="8.12" y1="8.12" x2="12" y2="12" />
               </svg>
             </div>
-            <span className="font-display text-3xl font-bold text-white">Snip & Style</span>
+            <span className="font-display text-3xl font-bold text-white">{t('common.appName')}</span>
           </div>
-          <p className="text-white/70 mt-4">Welcome back, ready for your next look?</p>
+          <p className="text-white/70 mt-4">{t('auth.loginSubtitle')}</p>
         </div>
 
         {/* Login Form */}
         <div className="bg-white rounded-3xl p-8 shadow-2xl">
           <h2 className="font-display text-3xl font-bold text-primary mb-8 text-center">
-            Sign In
+            {t('auth.loginTitle')}
           </h2>
 
           {error && (
@@ -68,7 +70,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address
+                {t('auth.email')}
               </label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -85,7 +87,7 @@ const Login = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                {t('auth.password')}
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -94,7 +96,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="input-field pl-12 pr-12"
-                  placeholder="Enter your password"
+                  placeholder="••••••••"
                   required
                 />
                 <button
@@ -116,7 +118,7 @@ const Login = () => {
                 <div className="spinner w-6 h-6"></div>
               ) : (
                 <>
-                  <span>Sign In</span>
+                  <span>{t('auth.loginBtn')}</span>
                   <ArrowRight size={20} />
                 </>
               )}
@@ -124,9 +126,9 @@ const Login = () => {
           </form>
 
           <p className="text-center mt-6 text-gray-600">
-            Don't have an account?{' '}
+            {t('auth.noAccount')}{' '}
             <Link to="/register" className="text-accent font-semibold hover:underline">
-              Create one
+              {t('auth.registerBtn')}
             </Link>
           </p>
         </div>

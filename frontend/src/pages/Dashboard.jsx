@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Scissors, Star, ChevronRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { bookingAPI, serviceAPI, stylistAPI } from '../services/api';
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [services, setServices] = useState([]);
   const [stylists, setStylists] = useState([]);
@@ -33,9 +35,9 @@ const Dashboard = () => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return t('dashboard.welcome');
+    if (hour < 18) return t('dashboard.welcome');
+    return t('dashboard.welcome');
   };
 
   if (loading) {
@@ -62,22 +64,22 @@ const Dashboard = () => {
             <div className="text-white">
               <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
                 <Sparkles size={16} className="text-gold" />
-                <span className="text-sm">Premium Hair Studio</span>
+                <span className="text-sm">{t('service.title')}</span>
               </div>
               <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight mb-6">
                 {getGreeting()},{' '}
                 <span className="text-gold">{user?.name?.split(' ')[0]}</span>
               </h1>
               <p className="text-white/80 text-lg mb-8 max-w-lg">
-                Transform your look with our expert stylists. Book your appointment today and experience the art of precision cutting.
+                {t('dashboard.welcome')}
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/bookings" className="btn-primary inline-flex items-center space-x-2">
                   <Calendar size={20} />
-                  <span>Book Now</span>
+                  <span>{t('dashboard.bookNow')}</span>
                 </Link>
                 <Link to="/profile" className="btn-secondary border-white text-white hover:bg-white hover:text-primary">
-                  View Profile
+                  {t('profile.title')}
                 </Link>
               </div>
             </div>
@@ -90,8 +92,8 @@ const Dashboard = () => {
                   <div className="w-32 h-32 mx-auto mb-6 bg-accent/20 rounded-full flex items-center justify-center">
                     <Scissors className="w-16 h-16 text-white" />
                   </div>
-                  <p className="text-white text-xl font-display">Expert Stylists</p>
-                  <p className="text-white/70 mt-2">10+ years of experience</p>
+                  <p className="text-white text-xl font-display">{t('stylist.title')}</p>
+                  <p className="text-white/70 mt-2">10+ {t('stylist.years')}</p>
                 </div>
               </div>
             </div>
@@ -103,9 +105,9 @@ const Dashboard = () => {
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-primary mb-4">Our Services</h2>
+            <h2 className="font-display text-4xl font-bold text-primary mb-4">{t('service.title')}</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              From classic cuts to modern styles, we offer a range of services tailored to your unique personality.
+              {t('service.description')}
             </p>
           </div>
 
@@ -126,10 +128,10 @@ const Dashboard = () => {
                   {service.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-accent font-bold text-xl">${service.price}</span>
+                  <span className="text-accent font-bold text-xl">¥{service.price}</span>
                   <span className="text-gray-500 text-sm flex items-center">
                     <Clock size={14} className="mr-1" />
-                    {service.duration} min
+                    {service.duration} {t('service.minutes')}
                   </span>
                 </div>
               </div>
@@ -141,7 +143,7 @@ const Dashboard = () => {
               to="/bookings"
               className="inline-flex items-center space-x-2 text-accent font-semibold hover:underline"
             >
-              <span>View All Services</span>
+              <span>{t('service.bookNow')}</span>
               <ChevronRight size={20} />
             </Link>
           </div>
@@ -152,9 +154,9 @@ const Dashboard = () => {
       <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-primary mb-4">Meet Our Stylists</h2>
+            <h2 className="font-display text-4xl font-bold text-primary mb-4">{t('stylist.title')}</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Our talented team of professionals is dedicated to bringing your vision to life.
+              {t('stylist.specialty')}
             </p>
           </div>
 
@@ -194,7 +196,7 @@ const Dashboard = () => {
                   to={`/bookings?stylist=${stylist.id}`}
                   className="inline-block mt-4 text-accent font-semibold hover:underline"
                 >
-                  Book with {stylist.name.split(' ')[0]}
+                  {t('stylist.viewProfile')}
                 </Link>
               </div>
             ))}
@@ -207,12 +209,12 @@ const Dashboard = () => {
         <section className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-12">
-              <h2 className="font-display text-4xl font-bold text-primary">Your Bookings</h2>
+              <h2 className="font-display text-4xl font-bold text-primary">{t('dashboard.myBookings')}</h2>
               <Link
                 to="/bookings"
                 className="inline-flex items-center space-x-2 text-accent font-semibold hover:underline"
               >
-                <span>View All</span>
+                <span>{t('common.search')}</span>
                 <ChevronRight size={20} />
               </Link>
             </div>
@@ -223,10 +225,10 @@ const Dashboard = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-display text-xl font-bold text-primary">
-                        {booking.service?.name || 'Haircut'}
+                        {booking.service?.name || t('booking.service')}
                       </h3>
                       <p className="text-gray-500 text-sm">
-                        with {booking.stylist?.name || 'Any Stylist'}
+                        {booking.stylist?.name || t('booking.stylist')}
                       </p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -236,7 +238,7 @@ const Dashboard = () => {
                         ? 'bg-yellow-100 text-yellow-700'
                         : 'bg-gray-100 text-gray-700'
                     }`}>
-                      {booking.status}
+                      {t(`booking.status.${booking.status?.toLowerCase()}`)}
                     </span>
                   </div>
                   <div className="space-y-2 text-sm">
@@ -260,14 +262,14 @@ const Dashboard = () => {
       <section className="py-20 px-4 bg-gradient-dark">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-            Ready for a New Look?
+            {t('dashboard.bookNow')}
           </h2>
           <p className="text-white/80 text-lg mb-8">
-            Book your appointment today and let our expert stylists transform your style.
+            {t('booking.title')}
           </p>
           <Link to="/bookings" className="btn-primary inline-flex items-center space-x-2 text-lg px-10 py-5">
             <Calendar size={24} />
-            <span>Book Your Appointment</span>
+            <span>{t('booking.title')}</span>
           </Link>
         </div>
       </section>

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,13 +21,13 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { path: '/dashboard', label: 'Home' },
-    { path: '/bookings', label: 'Book Now' },
-    { path: '/profile', label: 'Profile' },
+    { path: '/dashboard', label: t('nav.home') },
+    { path: '/bookings', label: t('dashboard.bookNow') },
+    { path: '/profile', label: t('nav.profile') },
   ];
 
   if (user?.role === 'ADMIN') {
-    navLinks.push({ path: '/admin', label: 'Admin' });
+    navLinks.push({ path: '/admin', label: t('nav.admin') });
   }
 
   return (
@@ -48,7 +51,7 @@ const Navbar = () => {
               <span className={`font-display text-2xl font-bold ${
                 isScrolled ? 'text-primary' : 'text-white'
               }`}>
-                Snip & Style
+                {t('common.appName')}
               </span>
             </Link>
 
@@ -67,6 +70,9 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              
+              {/* Language Switcher */}
+              <LanguageSwitcher />
               
               {user ? (
                 <div className="flex items-center space-x-4">
@@ -87,6 +93,7 @@ const Navbar = () => {
                     className={`p-2 rounded-full transition-colors ${
                       isScrolled ? 'hover:bg-gray-100 text-primary' : 'hover:bg-white/20 text-white'
                     }`}
+                    title={t('nav.logout')}
                   >
                     <LogOut size={20} />
                   </button>
@@ -99,13 +106,13 @@ const Navbar = () => {
                       isScrolled ? 'text-primary' : 'text-white'
                     }`}
                   >
-                    Sign In
+                    {t('nav.login')}
                   </Link>
                   <Link
                     to="/register"
                     className="btn-primary text-sm px-6 py-3"
                   >
-                    Get Started
+                    {t('auth.registerBtn')}
                   </Link>
                 </div>
               )}
@@ -145,13 +152,19 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
+          
+          {/* Language Switcher in Mobile Menu */}
+          <div className="mt-4">
+            <LanguageSwitcher />
+          </div>
+          
           {user ? (
             <button
               onClick={() => { logout(); setIsMobileMenuOpen(false); }}
               className="text-white text-xl flex items-center space-x-2"
             >
               <LogOut size={24} />
-              <span>Logout</span>
+              <span>{t('nav.logout')}</span>
             </button>
           ) : (
             <>
@@ -160,14 +173,14 @@ const Navbar = () => {
                 className="text-white text-2xl"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Sign In
+                {t('nav.login')}
               </Link>
               <Link
                 to="/register"
                 className="btn-primary text-xl"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Get Started
+                {t('auth.registerBtn')}
               </Link>
             </>
           )}

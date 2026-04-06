@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Phone, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,12 +28,12 @@ const Register = () => {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('auth.passwordMismatch'));
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError(t('auth.passwordMismatch'));
       return;
     }
 
@@ -46,7 +48,7 @@ const Register = () => {
       });
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || t('common.error'));
     } finally {
       setLoading(false);
     }
@@ -73,15 +75,15 @@ const Register = () => {
                 <line x1="8.12" y1="8.12" x2="12" y2="12" />
               </svg>
             </div>
-            <span className="font-display text-3xl font-bold text-white">Snip & Style</span>
+            <span className="font-display text-3xl font-bold text-white">{t('common.appName')}</span>
           </div>
-          <p className="text-white/70 mt-4">Join our community of style enthusiasts</p>
+          <p className="text-white/70 mt-4">{t('auth.registerSubtitle')}</p>
         </div>
 
         {/* Register Form */}
         <div className="bg-white rounded-3xl p-8 shadow-2xl">
           <h2 className="font-display text-3xl font-bold text-primary mb-8 text-center">
-            Create Account
+            {t('auth.registerTitle')}
           </h2>
 
           {error && (
@@ -93,7 +95,7 @@ const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name
+                {t('auth.name')}
               </label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -111,7 +113,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address
+                {t('auth.email')}
               </label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -129,7 +131,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number
+                {t('auth.phone')}
               </label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -139,7 +141,7 @@ const Register = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="input-field pl-12"
-                  placeholder="+1 234 567 8900"
+                  placeholder="+86 138 0000 0000"
                   required
                 />
               </div>
@@ -147,7 +149,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                {t('auth.password')}
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -157,7 +159,7 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="input-field pl-12 pr-12"
-                  placeholder="Min 6 characters"
+                  placeholder="••••••"
                   required
                 />
                 <button
@@ -172,7 +174,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password
+                {t('auth.confirmPassword')}
               </label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -182,7 +184,7 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className="input-field pl-12"
-                  placeholder="Repeat password"
+                  placeholder="••••••"
                   required
                 />
               </div>
@@ -197,7 +199,7 @@ const Register = () => {
                 <div className="spinner w-6 h-6"></div>
               ) : (
                 <>
-                  <span>Create Account</span>
+                  <span>{t('auth.registerBtn')}</span>
                   <ArrowRight size={20} />
                 </>
               )}
@@ -205,9 +207,9 @@ const Register = () => {
           </form>
 
           <p className="text-center mt-6 text-gray-600">
-            Already have an account?{' '}
+            {t('auth.hasAccount')}{' '}
             <Link to="/login" className="text-accent font-semibold hover:underline">
-              Sign in
+              {t('auth.loginBtn')}
             </Link>
           </p>
         </div>
