@@ -9,7 +9,7 @@
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",
-    "search": "Search",
+    "search": "View All",
     "noData": "No data available",
     "confirm": "Confirm",
     "back": "Back",
@@ -30,9 +30,9 @@
   },
   "auth": {
     "loginTitle": "Welcome Back",
-    "loginSubtitle": "Sign in to your account",
+    "loginSubtitle": "Sign in to your account, ready for your next look",
     "registerTitle": "Create Account",
-    "registerSubtitle": "Join us to start booking",
+    "registerSubtitle": "Join our community of style enthusiasts",
     "email": "Email Address",
     "password": "Password",
     "confirmPassword": "Confirm Password",
@@ -51,7 +51,7 @@
     "passwordRequired": "Password is required",
     "nameRequired": "Name is required",
     "phoneRequired": "Phone number is required",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match, must be at least 6 characters"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -64,15 +64,16 @@
     "bookNow": "Book Now"
   },
   "booking": {
-    "title": "Book Service",
+    "title": "Book Your Appointment",
     "myBookings": "My Bookings",
     "newBooking": "New Booking",
     "selectService": "Select Service",
     "selectStylist": "Select Stylist",
     "selectDate": "Select Date",
     "selectTime": "Select Time",
+    "selectDateTime": "Select Date & Time",
     "confirmBooking": "Confirm Booking",
-    "bookingSuccess": "Booking successful",
+    "bookingSuccess": "Booking Confirmed",
     "bookingFailed": "Booking failed",
     "cancelBooking": "Cancel Booking",
     "cancelSuccess": "Booking cancelled",
@@ -88,10 +89,16 @@
     "date": "Date",
     "time": "Time",
     "price": "Price",
-    "notes": "Notes"
+    "notes": "Notes",
+    "followSteps": "Follow the steps to schedule your visit",
+    "availableTimes": "Available Times",
+    "selectDateFirst": "Please select a date first",
+    "continueConfirm": "Continue to Confirm",
+    "confirmationSent": "Your appointment has been successfully booked. We'll send you a confirmation email shortly.",
+    "bookAnother": "Book Another Appointment"
   },
   "service": {
-    "title": "Our Services",
+    "title": "Premium Hair Studio",
     "duration": "Duration",
     "price": "Price",
     "description": "Description",
@@ -99,11 +106,11 @@
     "bookNow": "Book Now"
   },
   "stylist": {
-    "title": "Our Stylists",
+    "title": "Expert Stylists",
     "specialty": "Specialty",
     "experience": "Experience",
-    "years": "years",
-    "viewProfile": "View Profile"
+    "years": "years of experience",
+    "viewProfile": "Book with"
   },
   "profile": {
     "title": "Profile",
@@ -115,7 +122,8 @@
     "newPassword": "New Password",
     "confirmNewPassword": "Confirm New Password",
     "passwordChanged": "Password changed successfully",
-    "profileUpdated": "Profile updated successfully"
+    "profileUpdated": "Profile updated successfully",
+    "emailCannotChange": "Email cannot be changed"
   },
   "admin": {
     "title": "Admin Panel",

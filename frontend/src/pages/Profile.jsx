@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, Lock, Save, Camera } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { authAPI } from '../services/api';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const { user, updateUser } = useAuth();
   const [formData, setFormData] = useState({
     name: user?.name || '',
@@ -31,9 +33,9 @@ const Profile = () => {
         phone: formData.phone,
       });
       updateUser({ name: formData.name, phone: formData.phone });
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      setMessage({ type: 'success', text: t('profile.profileUpdated') });
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update profile' });
+      setMessage({ type: 'error', text: error.response?.data?.message || t('common.error') });
     } finally {
       setLoading(false);
     }
@@ -45,7 +47,7 @@ const Profile = () => {
     setMessage({ type: '', text: '' });
 
     if (formData.newPassword !== formData.confirmPassword) {
-      setMessage({ type: 'error', text: 'Passwords do not match' });
+      setMessage({ type: 'error', text: t('auth.passwordMismatch') });
       setLoading(false);
       return;
     }
@@ -55,10 +57,10 @@ const Profile = () => {
         currentPassword: formData.currentPassword,
         newPassword: formData.newPassword,
       });
-      setMessage({ type: 'success', text: 'Password changed successfully!' });
+      setMessage({ type: 'success', text: t('profile.passwordChanged') });
       setFormData({ ...formData, currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to change password' });
+      setMessage({ type: 'error', text: error.response?.data?.message || t('common.error') });
     } finally {
       setLoading(false);
     }
@@ -67,7 +69,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-display text-4xl font-bold text-primary mb-8">My Profile</h1>
+        <h1 className="font-display text-4xl font-bold text-primary mb-8">{t('profile.title')}</h1>
 
         {message.text && (
           <div className={`mb-6 px-4 py-3 rounded-xl ${
@@ -94,7 +96,7 @@ const Profile = () => {
               <h2 className="font-display text-2xl font-bold text-primary">{user?.name}</h2>
               <p className="text-gray-500">{user?.email}</p>
               <div className="mt-4 inline-block px-4 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium">
-                {user?.role || 'Customer'}
+                {user?.role === 'ADMIN' ? t('nav.admin') : t('profile.title')}
               </div>
             </div>
           </div>
@@ -105,12 +107,12 @@ const Profile = () => {
             <form onSubmit={handleProfileUpdate} className="bg-white rounded-3xl shadow-xl p-8">
               <h3 className="font-display text-2xl font-bold text-primary mb-6 flex items-center">
                 <User className="mr-3" size={24} />
-                Personal Information
+                {t('profile.myInfo')}
               </h3>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('auth.name')}</label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                     <input
@@ -125,7 +127,7 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('auth.email')}</label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                     <input
@@ -137,11 +139,11 @@ const Profile = () => {
                       disabled
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('profile.emailCannotChange')}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('auth.phone')}</label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                     <input
@@ -150,7 +152,7 @@ const Profile = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className="input-field pl-12"
-                      placeholder="+1 234 567 8900"
+                      placeholder="+86 138 0000 0000"
                     />
                   </div>
                 </div>
@@ -159,7 +161,7 @@ const Profile = () => {
                   {loading ? <div className="spinner w-6 h-6"></div> : (
                     <>
                       <Save size={20} />
-                      <span>Save Changes</span>
+                      <span>{t('common.save')}</span>
                     </>
                   )}
                 </button>
@@ -170,12 +172,12 @@ const Profile = () => {
             <form onSubmit={handlePasswordChange} className="bg-white rounded-3xl shadow-xl p-8">
               <h3 className="font-display text-2xl font-bold text-primary mb-6 flex items-center">
                 <Lock className="mr-3" size={24} />
-                Change Password
+                {t('profile.changePassword')}
               </h3>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.currentPassword')}</label>
                   <input
                     type="password"
                     name="currentPassword"
@@ -187,20 +189,20 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.newPassword')}</label>
                   <input
                     type="password"
                     name="newPassword"
                     value={formData.newPassword}
                     onChange={handleChange}
                     className="input-field"
-                    placeholder="Min 6 characters"
+                    placeholder="6+ characters"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('profile.confirmNewPassword')}</label>
                   <input
                     type="password"
                     name="confirmPassword"
@@ -215,7 +217,7 @@ const Profile = () => {
                   {loading ? <div className="spinner w-6 h-6"></div> : (
                     <>
                       <Lock size={20} />
-                      <span>Change Password</span>
+                      <span>{t('profile.changePassword')}</span>
                     </>
                   )}
                 </button>

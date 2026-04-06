@@ -9,7 +9,7 @@
     "delete": "删除",
     "edit": "编辑",
     "add": "添加",
-    "search": "搜索",
+    "search": "查看全部",
     "noData": "暂无数据",
     "confirm": "确认",
     "back": "返回",
@@ -30,9 +30,9 @@
   },
   "auth": {
     "loginTitle": "欢迎回来",
-    "loginSubtitle": "登录您的账户",
+    "loginSubtitle": "登录您的账户，准备开始新的造型之旅",
     "registerTitle": "创建账户",
-    "registerSubtitle": "加入我们开始预约",
+    "registerSubtitle": "加入我们，开始您的预约之旅",
     "email": "邮箱地址",
     "password": "密码",
     "confirmPassword": "确认密码",
@@ -51,7 +51,7 @@
     "passwordRequired": "请输入密码",
     "nameRequired": "请输入姓名",
     "phoneRequired": "请输入手机号码",
-    "passwordMismatch": "两次密码输入不一致"
+    "passwordMismatch": "两次密码输入不一致，密码至少6位字符"
   },
   "dashboard": {
     "title": "仪表盘",
@@ -71,6 +71,7 @@
     "selectStylist": "选择发型师",
     "selectDate": "选择日期",
     "selectTime": "选择时间",
+    "selectDateTime": "选择日期和时间",
     "confirmBooking": "确认预约",
     "bookingSuccess": "预约成功",
     "bookingFailed": "预约失败",
@@ -88,7 +89,13 @@
     "date": "预约日期",
     "time": "预约时间",
     "price": "价格",
-    "notes": "备注"
+    "notes": "备注",
+    "followSteps": "按照步骤完成预约",
+    "availableTimes": "可选时间",
+    "selectDateFirst": "请先选择日期",
+    "continueConfirm": "继续确认",
+    "confirmationSent": "您的预约已成功提交，我们将尽快发送确认信息。",
+    "bookAnother": "预约其他服务"
   },
   "service": {
     "title": "服务项目",
@@ -102,7 +109,7 @@
     "title": "发型师团队",
     "specialty": "专长",
     "experience": "从业经验",
-    "years": "年",
+    "years": "年经验",
     "viewProfile": "查看详情"
   },
   "profile": {
@@ -115,7 +122,8 @@
     "newPassword": "新密码",
     "confirmNewPassword": "确认新密码",
     "passwordChanged": "密码修改成功",
-    "profileUpdated": "资料更新成功"
+    "profileUpdated": "资料更新成功",
+    "emailCannotChange": "邮箱地址不可更改"
   },
   "admin": {
     "title": "管理后台",

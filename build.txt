@@ -1,0 +1,6 @@
+cd hair-salon-booking/backend
+mvn clean install
+mvn spring-boot:run
+
+cd C:\Users\ma811\.qclaw\workspace\hair-salon-booking\frontend
+npm run dev

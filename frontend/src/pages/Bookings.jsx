@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Calendar, Clock, User, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { serviceAPI, stylistAPI, bookingAPI } from '../services/api';
 
 const Bookings = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const { user } = useAuth();
   const [step, setStep] = useState(1);
@@ -77,7 +79,7 @@ const Bookings = () => {
 
   const handleSubmit = async () => {
     if (!selectedService || !selectedStylist || !selectedDate || !selectedTime) {
-      setError('Please complete all selections');
+      setError(t('booking.selectService'));
       return;
     }
 
@@ -98,7 +100,7 @@ const Bookings = () => {
 
       setSuccess(true);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create booking');
+      setError(err.response?.data?.message || t('booking.bookingFailed'));
     } finally {
       setSubmitting(false);
     }
@@ -136,6 +138,9 @@ const Bookings = () => {
     return date.toDateString() === selectedDate.toDateString();
   };
 
+  const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+  const weekDaysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -151,9 +156,9 @@ const Bookings = () => {
           <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-slow">
             <Check className="w-12 h-12 text-green-500" />
           </div>
-          <h2 className="font-display text-3xl font-bold text-primary mb-4">Booking Confirmed!</h2>
+          <h2 className="font-display text-3xl font-bold text-primary mb-4">{t('booking.bookingSuccess')}!</h2>
           <p className="text-gray-600 mb-8">
-            Your appointment has been successfully booked. We'll send you a confirmation email shortly.
+            {t('booking.confirmationSent')}
           </p>
           <button
             onClick={() => {
@@ -166,7 +171,7 @@ const Bookings = () => {
             }}
             className="btn-primary"
           >
-            Book Another Appointment
+            {t('booking.bookAnother')}
           </button>
         </div>
       </div>
@@ -177,8 +182,8 @@ const Bookings = () => {
     <div className="min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="font-display text-4xl font-bold text-primary mb-4">Book Your Appointment</h1>
-          <p className="text-gray-600">Follow the steps to schedule your visit</p>
+          <h1 className="font-display text-4xl font-bold text-primary mb-4">{t('booking.title')}</h1>
+          <p className="text-gray-600">{t('booking.followSteps')}</p>
         </div>
 
         <div className="flex items-center justify-center mb-12">
@@ -191,7 +196,7 @@ const Bookings = () => {
                   {s < step ? <Check size={20} /> : s}
                 </div>
                 <span className="ml-2 font-medium hidden sm:inline">
-                  {s === 1 ? 'Service' : s === 2 ? 'Stylist' : s === 3 ? 'Date & Time' : 'Confirm'}
+                  {s === 1 ? t('booking.selectService') : s === 2 ? t('booking.selectStylist') : s === 3 ? t('booking.selectDateTime') : t('booking.confirmBooking')}
                 </span>
               </div>
               {i < 3 && (
@@ -210,7 +215,7 @@ const Bookings = () => {
         <div className="bg-white rounded-3xl shadow-xl p-8 max-w-4xl mx-auto">
           {step === 1 && (
             <div className="animate-fadeIn">
-              <h2 className="font-display text-2xl font-bold text-primary mb-6">Select a Service</h2>
+              <h2 className="font-display text-2xl font-bold text-primary mb-6">{t('booking.selectService')}</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 {services.map((service) => (
                   <button
@@ -227,12 +232,12 @@ const Bookings = () => {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-display text-lg font-bold text-primary">{service.name}</h3>
-                      <span className="text-accent font-bold">${service.price}</span>
+                      <span className="text-accent font-bold">¥{service.price}</span>
                     </div>
                     <p className="text-gray-600 text-sm mb-3">{service.description}</p>
                     <span className="text-gray-500 text-sm flex items-center">
                       <Clock size={14} className="mr-1" />
-                      {service.duration} minutes
+                      {service.duration} {t('service.minutes')}
                     </span>
                   </button>
                 ))}
@@ -242,7 +247,7 @@ const Bookings = () => {
 
           {step === 2 && (
             <div className="animate-fadeIn">
-              <h2 className="font-display text-2xl font-bold text-primary mb-6">Choose Your Stylist</h2>
+              <h2 className="font-display text-2xl font-bold text-primary mb-6">{t('booking.selectStylist')}</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {stylists.map((stylist) => (
                   <button
@@ -274,14 +279,14 @@ const Bookings = () => {
                 ))}
               </div>
               <button onClick={() => setStep(1)} className="mt-6 text-gray-600 flex items-center hover:text-accent">
-                <ChevronLeft size={20} /><span>Back to Services</span>
+                <ChevronLeft size={20} /><span>{t('common.back')}</span>
               </button>
             </div>
           )}
 
           {step === 3 && (
             <div className="animate-fadeIn">
-              <h2 className="font-display text-2xl font-bold text-primary mb-6">Select Date & Time</h2>
+              <h2 className="font-display text-2xl font-bold text-primary mb-6">{t('booking.selectDateTime')}</h2>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -289,14 +294,14 @@ const Bookings = () => {
                       <ChevronLeft size={20} />
                     </button>
                     <h3 className="font-display text-lg font-bold">
-                      {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                      {currentMonth.toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' })}
                     </h3>
                     <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))} className="p-2 hover:bg-gray-100 rounded-full">
                       <ChevronRight size={20} />
                     </button>
                   </div>
                   <div className="grid grid-cols-7 gap-1 mb-2">
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                    {weekDays.map((day) => (
                       <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">{day}</div>
                     ))}
                   </div>
@@ -323,7 +328,7 @@ const Bookings = () => {
                 <div>
                   <h3 className="font-medium text-gray-700 mb-4 flex items-center">
                     <Clock size={18} className="mr-2" />
-                    Available Times
+                    {t('booking.availableTimes')}
                   </h3>
                   {selectedDate ? (
                     <div className="grid grid-cols-3 gap-2">
@@ -343,21 +348,21 @@ const Bookings = () => {
                     </div>
                   ) : (
                     <div className="text-center text-gray-500 py-12 border-2 border-dashed border-gray-200 rounded-xl">
-                      Please select a date first
+                      {t('booking.selectDateFirst')}
                     </div>
                   )}
                 </div>
               </div>
               <div className="flex justify-between mt-8">
                 <button onClick={() => setStep(2)} className="text-gray-600 flex items-center hover:text-accent">
-                  <ChevronLeft size={20} /><span>Back to Stylists</span>
+                  <ChevronLeft size={20} /><span>{t('common.back')}</span>
                 </button>
                 <button
                   onClick={() => setStep(4)}
                   disabled={!selectedDate || !selectedTime}
                   className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Continue to Confirm
+                  {t('booking.continueConfirm')}
                 </button>
               </div>
             </div>
@@ -365,34 +370,34 @@ const Bookings = () => {
 
           {step === 4 && (
             <div className="animate-fadeIn">
-              <h2 className="font-display text-2xl font-bold text-primary mb-6">Confirm Your Booking</h2>
+              <h2 className="font-display text-2xl font-bold text-primary mb-6">{t('booking.confirmBooking')}</h2>
               <div className="bg-gray-50 rounded-2xl p-6 mb-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <p className="text-gray-500 text-sm mb-1">Service</p>
+                    <p className="text-gray-500 text-sm mb-1">{t('booking.service')}</p>
                     <p className="font-bold text-primary">{selectedService?.name}</p>
-                    <p className="text-accent">${selectedService?.price}</p>
+                    <p className="text-accent">¥{selectedService?.price}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-sm mb-1">Stylist</p>
+                    <p className="text-gray-500 text-sm mb-1">{t('booking.stylist')}</p>
                     <p className="font-bold text-primary">{selectedStylist?.name}</p>
                     <p className="text-gray-500 text-sm">{selectedStylist?.specialty}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-sm mb-1">Date</p>
+                    <p className="text-gray-500 text-sm mb-1">{t('booking.date')}</p>
                     <p className="font-bold text-primary">
-                      {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                      {selectedDate?.toLocaleDateString('zh-CN', { weekday: 'long', month: 'long', day: 'numeric' })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-sm mb-1">Time</p>
+                    <p className="text-gray-500 text-sm mb-1">{t('booking.time')}</p>
                     <p className="font-bold text-primary">{selectedTime}</p>
                   </div>
                 </div>
               </div>
               <div className="flex justify-between">
                 <button onClick={() => setStep(3)} className="text-gray-600 flex items-center hover:text-accent">
-                  <ChevronLeft size={20} /><span>Back to Date & Time</span>
+                  <ChevronLeft size={20} /><span>{t('common.back')}</span>
                 </button>
                 <button
                   onClick={handleSubmit}
@@ -403,7 +408,7 @@ const Bookings = () => {
                     <div className="spinner w-6 h-6"></div>
                   ) : (
                     <>
-                      <Check size={20} /><span>Confirm Booking</span>
+                      <Check size={20} /><span>{t('booking.confirmBooking')}</span>
                     </>
                   )}
                 </button>
