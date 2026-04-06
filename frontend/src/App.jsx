@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
 import Profile from './pages/Profile';
 import AdminPanel from './pages/AdminPanel';
+import NewBooking from './pages/NewBooking';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
                 } />
                 <Route path="/bookings" element={
                   <ProtectedRoute><Bookings /></ProtectedRoute>
+                } />
+                <Route path="/book" element={
+                  <ProtectedRoute><NewBooking /></ProtectedRoute>
                 } />
                 <Route path="/profile" element={
                   <ProtectedRoute><Profile /></ProtectedRoute>

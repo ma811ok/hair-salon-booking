@@ -14,7 +14,8 @@
     "confirm": "Confirm",
     "back": "Back",
     "submit": "Submit",
-    "required": "Required"
+    "required": "Required",
+    "selected": "Selected"
   },
   "nav": {
     "home": "Home",
@@ -56,9 +57,13 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome back",
+    "whatToDo": "What would you like to do today?",
     "quickBook": "Quick Book",
     "myBookings": "My Bookings",
+    "bookService": "Book Service",
+    "history": "History",
     "recentActivity": "Recent Activity",
+    "upcoming": "Upcoming Bookings",
     "upcomingAppointments": "Upcoming Appointments",
     "noUpcoming": "No upcoming appointments",
     "bookNow": "Book Now"
@@ -74,6 +79,7 @@
     "selectDateTime": "Select Date & Time",
     "confirmBooking": "Confirm Booking",
     "bookingSuccess": "Booking Confirmed",
+    "createSuccess": "Booking created successfully",
     "bookingFailed": "Booking failed",
     "cancelBooking": "Cancel Booking",
     "cancelSuccess": "Booking cancelled",
@@ -83,6 +89,10 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
     "noBookings": "No bookings yet",
     "service": "Service",
     "stylist": "Stylist",
@@ -90,6 +100,11 @@
     "time": "Time",
     "price": "Price",
     "notes": "Notes",
+    "notesPlaceholder": "Enter special requests...",
+    "total": "Total",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "viewDetails": "View Details",
     "followSteps": "Follow the steps to schedule your visit",
     "availableTimes": "Available Times",
     "selectDateFirst": "Please select a date first",

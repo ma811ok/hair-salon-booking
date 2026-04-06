@@ -14,7 +14,8 @@
     "confirm": "确认",
     "back": "返回",
     "submit": "提交",
-    "required": "必填"
+    "required": "必填",
+    "selected": "已选中"
   },
   "nav": {
     "home": "首页",
@@ -56,9 +57,13 @@
   "dashboard": {
     "title": "仪表盘",
     "welcome": "欢迎回来",
+    "whatToDo": "今天想做什么？",
     "quickBook": "快速预约",
     "myBookings": "我的预约",
+    "bookService": "预约服务",
+    "history": "历史记录",
     "recentActivity": "最近活动",
+    "upcoming": "即将开始的预约",
     "upcomingAppointments": "即将到来的预约",
     "noUpcoming": "暂无即将到来的预约",
     "bookNow": "立即预约"
@@ -74,6 +79,7 @@
     "selectDateTime": "选择日期和时间",
     "confirmBooking": "确认预约",
     "bookingSuccess": "预约成功",
+    "createSuccess": "预约创建成功",
     "bookingFailed": "预约失败",
     "cancelBooking": "取消预约",
     "cancelSuccess": "预约已取消",
@@ -83,6 +89,10 @@
       "completed": "已完成",
       "cancelled": "已取消"
     },
+    "pending": "待处理",
+    "confirmed": "已确认",
+    "completed": "已完成",
+    "cancelled": "已取消",
     "noBookings": "暂无预约记录",
     "service": "服务项目",
     "stylist": "发型师",
@@ -90,6 +100,11 @@
     "time": "预约时间",
     "price": "价格",
     "notes": "备注",
+    "notesPlaceholder": "请输入特殊要求...",
+    "total": "合计",
+    "today": "今天",
+    "tomorrow": "明天",
+    "viewDetails": "查看详情",
     "followSteps": "按照步骤完成预约",
     "availableTimes": "可选时间",
     "selectDateFirst": "请先选择日期",
